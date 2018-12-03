@@ -1,0 +1,36 @@
+.add-budget-form-container {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: lightsteelblue;
+}
+
+/* .add-budget-select {
+    display: flex;
+    flex: 0;
+    margin: 2%;
+} */
+
+.add-budget-form {
+    display: flex;
+    margin: 2%;
+    flex-basis: 30%;
+}
+
+.amount-input, .desc-input, .add-btn {
+    margin: 3%;
+    padding: 2%
+}
+
+.add-btn {
+    color: white;
+    background-color: forestgreen;
+    font-size: 1.1rem;
+}
+
+.add-btn:hover {
+    color: forestgreen;
+    background-color: white;
+}
