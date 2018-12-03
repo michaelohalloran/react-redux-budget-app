@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import LiveUpdate from './LiveUpdate';
 import AddBudgetForm from './AddBudgetForm';
-// import IncomeTable from './IncomeTable';
-// import ExpenseTable from './ExpenseTable';
+import IncomeTable from './IncomeTable';
+import ExpenseTable from './ExpenseTable';
 
 
 
@@ -34,9 +34,46 @@ class App extends Component {
     })
   }
 
+  // sortAlpha = () => {
+  //   const {items} = this.state;
+  //   const sortedItems = items.sort((a, b) => {
+  //     return a.desc < b.desc ? -1 : 1;
+  //   });
+  //   return sortedItems;
+  // }
+
+  sortAlpha = arr => {
+    let copy = arr.slice();
+    const sorted = copy.sort((a, b) => {
+      return a.desc < b.desc ? -1 : 1;
+    });
+    return sorted;
+  }
+
+  reverseSortAlpha = arr => {
+    let copy = arr.slice();
+    const sorted = copy.sort((a, b) => {
+      return a.desc < b.desc ? 1 : -1;
+    });
+    return sorted;
+  }
+
   render() {
 
     const {items, moneyType, netTotal} = this.state;
+
+    //if some items are income, show the incomeDisplay
+    const incomeDisplay = items.some(item => item.moneyType === 'income') ? (
+      <IncomeTable 
+        sortAlpha={this.sortAlpha}
+        reverseSortAlpha={this.reverseSortAlpha} 
+        items={items}
+      />
+    ) : null;
+
+    const expenseDisplay = items.some(item => item.moneyType === 'expense') ? (
+      <ExpenseTable items={items} />
+    ): null;
 
     return (
       <div className="App">
@@ -49,8 +86,10 @@ class App extends Component {
           toggleMoneyType={this.toggleMoneyType}
           moneyType = {moneyType}
         />
-        {/* <IncomeTable /> */}
-        {/* <ExpenseTable /> */}
+        <div className="table-container">
+          {incomeDisplay}
+          {expenseDisplay}
+        </div>
       </div>
     );
   }

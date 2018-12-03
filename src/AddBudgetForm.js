@@ -6,27 +6,33 @@ class AddBudgetForm extends Component {
     state = {
         desc: '',
         amount: '',
+        errorMsg: '',
     }
-
 
     handleSubmit = e => {
         e.preventDefault();
         const {addBudgetItem, moneyType} = this.props;
         const {desc, amount} = this.state;
+
+        //don't allow users to submit NaN
+        if(isNaN(amount)) {
+            console.log('Can\'t add non-number');
+            this.setState({desc: '', amount: ''});
+            return;
+        }
+
         const budgetItem = {
             desc,
             moneyType,
             amount: +amount
         }
 
-        console.log('handleSubmit event: ', e);
         addBudgetItem(budgetItem);
-        // calcUpdatedTotal();
+        //update display tables
         this.setState({
             desc: '',
             amount: ''
         });
-
     }
 
     handleChange = e => {
@@ -37,7 +43,7 @@ class AddBudgetForm extends Component {
 
     render() {
 
-        const {toggleMoneyType} = this.props;
+        const {toggleMoneyType, moneyType} = this.props;
 
     return (
       <div className="add-budget-form-container">
@@ -57,14 +63,20 @@ class AddBudgetForm extends Component {
                 name="desc"
                 value={this.state.desc}
                 onChange={this.handleChange}
+                placeholder="Description"
             />
             <input 
                 className="amount-input"
                 name="amount"
                 value={this.state.amount}
                 onChange={this.handleChange}
+                placeholder="Amount"
             />
-            <button className="add-btn">Add</button>
+            <button 
+                className={moneyType==='income' ? "add-income-btn" : "add-expense-btn"}
+            >
+                Add
+            </button>
         </form>
       </div>
     )

@@ -19,18 +19,33 @@
     flex-basis: 30%;
 }
 
-.amount-input, .desc-input, .add-btn {
+.amount-input, .desc-input {
     margin: 3%;
     padding: 2%
 }
 
-.add-btn {
+.add-income-btn, .add-expense-btn {
     color: white;
-    background-color: forestgreen;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+    width: 100%;
+    margin: 3%;
+    padding: 2%;
 }
 
-.add-btn:hover {
-    color: forestgreen;
+.add-income-btn {
+    background-color: rgb(34, 139, 34);
+}
+
+.add-expense-btn {
+    background-color: rgb(178, 34, 34);
+}
+
+.add-income-btn:hover {
+    color: rgb(34, 139, 34);
+    background-color: white;
+}
+
+.add-expense-btn:hover {
+    color: rgb(178, 34, 34);
     background-color: white;
 }

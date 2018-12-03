@@ -1,0 +1,27 @@
+/* .income-table-container {
+  display: flex;
+  flex-direction: row;
+} */
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  padding: 4%;
+}
+
+.income-table-container, .expense-table-container {
+  margin: auto;
+}
+
+
+.income-table-container {
+  background-color: #2e8b57;
+}
+.expense-table-container {
+  background-color: #b22222;
+}
+

@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import './LiveUpdate.css';
 
 const LiveUpdate = props=> {
 
-  const {netTotal, items} = props;
+  const {netTotal, items, updateDisplayTables} = props;
 
   console.log('items: ', items);
 
@@ -14,19 +15,19 @@ const LiveUpdate = props=> {
   console.log('latest income: ', latestIncomeItem);
 
   const incomeDisplay = latestIncomeItem ? (
-      <div className="live-update-income">{latestIncomeItem.desc} : {latestIncomeItem.amount}</div>
+      <div className="live-update-income">{latestIncomeItem.desc} : +${latestIncomeItem.amount}</div>
   ) : null;
 
   const expenseDisplay = latestExpenseItem? (
-    <div className="live-update-expense">{latestExpenseItem.desc} : {latestExpenseItem.amount}</div>
+    <div className="live-update-expense">{latestExpenseItem.desc} : -${latestExpenseItem.amount}</div>
   ) : null;
 
   return (
-    <div className="live-update-display">
-      <h4 className="live-update-h4">Net Amount: {netTotal}</h4>
+    <header className="live-update-display">
+      <h4 className="live-update-header">Net Amount: {netTotal}</h4>
         {incomeDisplay}
         {expenseDisplay}
-    </div>
+    </header>
   )
 }
 

@@ -1,0 +1,61 @@
+.live-update-display {
+    height: 45vh;
+    background: linear-gradient(
+        to right, 
+        rgba(173, 216, 230, 0.8),
+        rgba(0, 0, 205, 0.8)
+    ), 
+    url('https://img-aws.ehowcdn.com/877x500p/s3-us-west-1.amazonaws.com/contentlab.studiod/getty/f24b4a7bf9f24d1ba5f899339e6949f3') no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* display: flex; */
+    /* clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%); */
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .live-update-header {
+    /* margin: 0 auto; */
+    /* background-color: rgb(34, 139, 34); */
+    /* position: absolute;
+    top: 26%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+
+    /* FLEX: */
+    /* margin: auto; //this only for absolute centering; don't use if need justify-content */
+    font-size: 2.6rem;
+    text-align: center;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 0.2rem;
+    border: 1px solid yellow;
+
+  }
+  
+  .live-update-income, .live-update-expense {
+    /* background-color: #2e8b57; */
+    /* background-color: #b22222; */
+    /* margin: 0 auto; */
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    /* width: 40vw; */
+    letter-spacing: 0.3rem;
+    border: 1px solid yellow;
+    /* center text inside: */
+    display: flex;
+    align-items: center;
+  }
+  
+  .live-update-income {
+    background-color: #2e8b57;
+  }
+
+  .live-update-expense {
+    background-color: #b22222;
+  }
