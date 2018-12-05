@@ -13,6 +13,20 @@ table, th, td {
   padding: 4%;
 }
 
+/* i {
+  border: 1px solid red;
+  padding: 0.4rem;
+  display: inline-block;
+  border-width: 0 3px 3px 0;
+}
+
+.up {
+  transform: rotate(-135deg);
+}
+.down {
+  transform: rotate(45deg);
+} */
+
 .income-table-container, .expense-table-container {
   margin: auto;
 }

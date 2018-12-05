@@ -4,8 +4,7 @@ import LiveUpdate from './LiveUpdate';
 import AddBudgetForm from './AddBudgetForm';
 import IncomeTable from './IncomeTable';
 import ExpenseTable from './ExpenseTable';
-
-
+import Table from './Table';
 
 //LATER: wrap in <BrowserRouter>, then put <Route path="" component={}></Route> around inside components, and put <Link to="/"> in the other files
 
@@ -34,14 +33,6 @@ class App extends Component {
     })
   }
 
-  // sortAlpha = () => {
-  //   const {items} = this.state;
-  //   const sortedItems = items.sort((a, b) => {
-  //     return a.desc < b.desc ? -1 : 1;
-  //   });
-  //   return sortedItems;
-  // }
-
   sortAlpha = arr => {
     let copy = arr.slice();
     const sorted = copy.sort((a, b) => {
@@ -58,21 +49,43 @@ class App extends Component {
     return sorted;
   }
 
+  // sortAlpha = (arr, sortType) => {
+  //   let copy = arr.slice();
+  //   const sorted = copy.sort((a,b) => {
+  //     if(sortType === 'ascending' && a.desc < b.desc) {
+  //       return -1;
+  //     } else if(sortType === 'descending' && a.desc < b.desc) {
+  //       return 1;
+  //     }
+  //   });
+  // }
+
   render() {
 
     const {items, moneyType, netTotal} = this.state;
 
     //if some items are income, show the incomeDisplay
+    // const incomeDisplay = items.some(item => item.moneyType === 'income') ? (
+    //   <IncomeTable 
+    //     sortAlpha={this.sortAlpha}
+    //     reverseSortAlpha={this.reverseSortAlpha} 
+    //     items={items}
+    //   />
+    // ) : null;
+
     const incomeDisplay = items.some(item => item.moneyType === 'income') ? (
-      <IncomeTable 
+      <Table 
         sortAlpha={this.sortAlpha}
         reverseSortAlpha={this.reverseSortAlpha} 
         items={items}
+        moneyType='income'
       />
     ) : null;
 
     const expenseDisplay = items.some(item => item.moneyType === 'expense') ? (
-      <ExpenseTable items={items} />
+      <ExpenseTable 
+        items={items} 
+      />
     ): null;
 
     return (
