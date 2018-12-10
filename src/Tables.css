@@ -3,7 +3,9 @@
   flex-direction: row;
 } */
 
-table, th, td {
+/* table, th, td { */
+
+table {
   border: 1px solid black;
   text-align: center;
   color: white;
@@ -11,6 +13,11 @@ table, th, td {
   font-weight: 400;
   letter-spacing: 0.2em;
   padding: 4%;
+}
+
+.sort-btn {
+  padding: 3%;
+  margin: 0 1%;
 }
 
 /* i {

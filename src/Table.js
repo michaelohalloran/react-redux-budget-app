@@ -1,21 +1,28 @@
 import React from 'react';
 import './Tables.css';
+import {arraySorter} from './helper';
 
 class Table extends React.Component {
 
   state = {
     sortAscending: false,
     sortDescending: false,
+    sortKey: null,
   }
 
-  toggleSort = (e) => {
-    const {sortAscending, sortDescending} = this.state;
+  handleToggleSort = (e) => {
+    const {sortAscending, sortDescending, sortKey} = this.state;
     const field = e.target.value;
+    const key = e.target.name;
     let bool = (field === 'sortAscending') ? sortAscending : sortDescending;
     //when clicked, toggle sorted property in state
     //also sort up or down based on field value
+    //let sorted = sortTable(props.items DESTRUCTURE THIS ABOVE)
+    //this.setState({sortedItems: sorted});
+
     this.setState({
       [field]: !bool,
+      sortKey: key,
     });
     //also render with sortedCells
   }
@@ -39,52 +46,69 @@ class Table extends React.Component {
 
   render() {
 
-    const {items, sortAlpha, reverseSortAlpha, moneyType} = this.props;
-    const {sortAscending, sortDescending} = this.state;
-    
-    const sortedArr = sortAlpha(items);
-    const reverseSortedArr = reverseSortAlpha(items);
-    const sortedCells = this.makeDisplay(sortedArr);
-    const reverseSortedCells = this.makeDisplay(reverseSortedArr);
-    //unsorted cells:
-    const tableCells = this.makeDisplay(items);
+    const {items, sortTable, moneyType} = this.props;
+    const {sortAscending, sortDescending, sortKey} = this.state;
 
-    //SORTING LOGIC:
-    let tableDisplay;
-
+    //set sortDirection before rendering items array
+    let sortDirection;
     if(sortAscending) {
-      tableDisplay = sortedCells;
+      sortDirection = 'ascending';
     } else if (sortDescending) {
-      tableDisplay = reverseSortedCells;
+      sortDirection = 'descending';
     } else {
-      tableDisplay = tableCells;
+      sortDirection = null;
     }
+
+    //arraySort takes arr, sortKey ('desc' or 'amount') and direction ('ascending' or 'descending')
+    const sortedItems = arraySorter(items, sortKey, sortDirection);
+
+    //if items have been sorted, show those; otherwise show unsorted items array
+    let tableDisplay = sortedItems ? this.makeDisplay(sortedItems) : this.makeDisplay(items);
+    console.log('table Cells: ', tableDisplay);
+
+
 
       return (
         <div className={`${moneyType}-table-container`}>
           <table>
               <tbody>
                 <tr>
-                    <th className="table-header-">Income 
-                      <button 
+                    <th className="table-header-">{moneyType.toUpperCase()} 
+                      <button
+                        name="desc" 
                         value="sortAscending"
                         className="sort-btn"
-                        onClick={this.toggleSort}
+                        onClick={this.handleToggleSort}
                       >
                         &#8593;
-                        {/* <i className="up"></i> */}
                       </button>
-                      <button 
+                      <button
+                        name="desc" 
                         value="sortDescending"
                         className="sort-btn"
-                        onClick={this.toggleSort}
+                        onClick={this.handleToggleSort}
                       >
                         &#8595;
-                        {/* <i className="down"></i> */}
-                        {/* Sort Descending */}
                       </button>
                     </th>
-                    <th>Amount</th>
+                    <th className="table-header-">Amount 
+                      <button
+                        name="amount" 
+                        value="sortAscending"
+                        className="sort-btn"
+                        onClick={this.handleToggleSort}
+                      >
+                        &#8593;
+                      </button>
+                      <button
+                        name="amount" 
+                        value="sortDescending"
+                        className="sort-btn"
+                        onClick={this.handleToggleSort}
+                      >
+                        &#8595;
+                      </button>
+                    </th>
                 </tr>
                 {tableDisplay}
               </tbody>
