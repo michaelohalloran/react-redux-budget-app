@@ -19,6 +19,8 @@ class App extends Component {
     moneyType: 'income',
     sortedAscending: false,
     sortedDescending: false,
+    textToUpdate: '',
+    amountToUpdate: '',
   }
 
   addBudgetItem = newItem => {
@@ -61,15 +63,63 @@ class App extends Component {
   }
 
 
-  editItem = (e) => {
-    console.log('hit editItem, evt: ', e);
+  onEditClick = idx => {
+    const {items} = this.state;
+    console.log('hit editItem, evt: ', idx);
+    const itemToEdit = items[idx];
+    const textToUpdate = itemToEdit.desc;
+    const amountToUpdate = itemToEdit.amount;
     //check item's editing property; if false, toggle to true
-    //open up input and submit button in the view
+    itemToEdit.editing = (itemToEdit.editing === true) ? false : true;
+    //put this editableItem back in items
+
+
+    this.setState({
+      items: [...items.slice(0,idx), itemToEdit, items.slice(idx+1)],
+      textToUpdate,
+      amountToUpdate,
+    });
+    //open up EditItem input and submit button in the view
     //placeholder text should be the budget item's text property
     //locate this by grabbing event's id or index, searching array for object with that id/idx
     //then fire handleSubmit after this; 
   }
+
+  handleUpdate = (updates, idx) => {
+    console.log('hit handleUpdate');
+    console.log('handleUpdate idx: ', updates);
+    const {items} = this.state;
+    let updatedItem = items[idx];
+    //put updates in items
+    let start = items.slice(0,idx);
+    let end = items.slice(idx+1);
+    const updatedItems = [...start, updatedItem, ...end];
+    this.setState({items: updatedItems});
+  }
   
+  handleUpdateFields = ({amountToUpdate = '', descToUpdate = '', idxToUpdate = null} = {}) => {
+    // console.log('updates from App: ', updates);
+    const {items} = this.state;
+    let start = items.slice(0, idxToUpdate);
+    let end = items.slice(idxToUpdate + 1);
+    let updatedItem = {
+      ...items[idxToUpdate],
+      amount: amountToUpdate,
+      descToUpdate: descToUpdate,
+      editing: false,
+    };
+
+    console.log('updatedItem: ', updatedItem);
+
+    let updatedItems = [...start, updatedItem, ...end];
+
+    this.setState({
+      items: updatedItems,
+    });
+
+
+  }
+
   onDeleteClick = idx => {
     const {items} = this.state;
     let removeIndex = idx;
@@ -82,7 +132,7 @@ class App extends Component {
 
   render() {
 
-    const {moneyType, netTotal} = this.state;
+    const {moneyType, netTotal, textToUpdate, amountToUpdate} = this.state;
     let {items} = this.state;
 
     const incomeDisplay = items.some(item => item.moneyType === 'income') ? (
@@ -91,6 +141,11 @@ class App extends Component {
         items={items}
         moneyType='income'
         toggleSortType={this.toggleSortType}
+        textToUpdate={textToUpdate} 
+        amountToUpdate={amountToUpdate}
+        handleUpdateFields={this.handleUpdateFields}
+        handleUpdate={this.handleUpdate}
+        onEditClick={this.onEditClick} 
         onDeleteClick={this.onDeleteClick} 
       />
     ) : null;
@@ -101,6 +156,11 @@ class App extends Component {
         items={items}
         moneyType='expense'
         toggleSortType={this.toggleSortType}
+        textToUpdate={textToUpdate} 
+        amountToUpdate={amountToUpdate}
+        handleUpdateFields={this.handleUpdateFields}
+        handleUpdate={this.handleUpdate}
+        onEditClick={this.onEditClick} 
         onDeleteClick={this.onDeleteClick} 
       />
     ): null;

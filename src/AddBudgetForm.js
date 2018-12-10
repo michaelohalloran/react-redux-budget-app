@@ -7,12 +7,13 @@ class AddBudgetForm extends Component {
         desc: '',
         amount: '',
         errorMsg: '',
+        editing: false,
     }
 
     handleSubmit = e => {
         e.preventDefault();
         const {addBudgetItem, moneyType} = this.props;
-        const {desc, amount} = this.state;
+        const {desc, amount, editing} = this.state;
 
         //don't allow users to submit NaN
         if(isNaN(amount)) {
@@ -24,7 +25,8 @@ class AddBudgetForm extends Component {
         const budgetItem = {
             desc,
             moneyType,
-            amount: +amount
+            amount: +amount, 
+            editing
         }
 
         addBudgetItem(budgetItem);

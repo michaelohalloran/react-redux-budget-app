@@ -2,6 +2,7 @@ import React from 'react';
 import './Tables.css';
 import {arraySorter} from './helper';
 import ArrowBtn from './ArrowBtn';
+import EditItem from './EditItem';
 
 class Table extends React.Component {
 
@@ -9,6 +10,9 @@ class Table extends React.Component {
     sortAscending: false,
     sortDescending: false,
     sortKey: null,
+    descToUpdate: '',
+    amountToUpdate: '',
+    idxToUpdate: null,
   }
 
   handleToggleSort = (e) => {
@@ -25,15 +29,53 @@ class Table extends React.Component {
     });
   }
 
+  handleEdit = idx => {
+    const {onEditClick} = this.props;
+    onEditClick(idx);
+  }
+
   handleDelete = idx => {
     const {onDeleteClick} = this.props;
     //pass this to top-level delete
     onDeleteClick(idx);
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const {descToUpdate, amountToUpdate, idxToUpdate} = this.state;
+    const {handleUpdateFields} = this.props;
+
+    let updates = {
+      descToUpdate,
+      amountToUpdate,
+      idxToUpdate,
+    }
+
+    console.log('fired handleSubmit, updates: ', updates);
+
+ 
+    // this.setState({
+    //   descToUpdate,
+    //   amountToUpdate,
+    //   idxToUpdate,
+    // });
+
+    //pass this up a level
+    handleUpdateFields(updates);
+  }
+
+  updateFields = (e,idx) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+      idxToUpdate: idx,
+    });
+  }
+
   makeDisplay = arr => {
 
-    const {moneyType} = this.props;
+    const {moneyType, handleUpdate} = this.props;
+    const {descToUpdate, amountToUpdate, idxToUpdate} = this.state;
+    console.log('fired makeDisplay');
 
     return (
       arr
@@ -42,7 +84,37 @@ class Table extends React.Component {
           <tr key={idx}>
             <td>{item.desc}</td>
             <td>{item.amount}</td>
+            <td onClick={()=> this.handleEdit(idx)}>Edit</td>
             <td onClick={()=> this.handleDelete(idx)}>X</td>
+            {item.editing? (
+              // <EditItem 
+              //   handleUpdate={handleUpdate}
+              //   textToUpdate={textToUpdate}
+              //   amountToUpdate={amountToUpdate}
+              //   idx={idx}
+              //   desc={item.desc}
+              //   amount={item.amount}
+              // />
+              <td>
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    name="descToUpdate" 
+                    placeholder={item.desc}
+                    value={descToUpdate}
+                    onChange={(e) => this.updateFields(e,idx)}
+                  />
+                  <input
+                    name="amountToUpdate" 
+                    placeholder={item.amount}
+                    value={amountToUpdate}
+                    onChange={(e) => this.updateFields(e,idx)}
+                  />
+                  <button>Update</button>
+                </form>
+              </td>
+            ): 
+              (null)
+            }
           </tr>
         ))
     );

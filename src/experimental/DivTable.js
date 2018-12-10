@@ -1,7 +1,7 @@
 import React from 'react';
 import './DivTable.css';
-import {arraySorter} from './helper';
-import ArrowBtn from './ArrowBtn';
+import {arraySorter} from '../helper';
+import ArrowBtn from '../ArrowBtn';
 
 class DivTable extends React.Component {
 
