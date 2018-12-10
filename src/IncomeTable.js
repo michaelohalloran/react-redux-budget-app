@@ -9,7 +9,6 @@ class IncomeTable extends React.Component {
   }
 
   toggleSort = (e) => {
-    console.log('button val: ', e.target.value);
     const {sortAscending, sortDescending} = this.state;
     const field = e.target.value;
     let bool = (field === 'sortAscending') ? sortAscending : sortDescending;

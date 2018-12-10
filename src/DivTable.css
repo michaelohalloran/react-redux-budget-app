@@ -1,0 +1,40 @@
+/* 
+table {
+  border: 1px solid black;
+  text-align: center;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  padding: 4%;
+}
+
+.sort-btn {
+  padding: 3%;
+  margin: 0 1%;
+}
+
+.income-table-container {
+  background-color: #2e8b57;
+}
+.expense-table-container {
+  background-color: #b22222;
+}
+ */
+
+ .income-table-container, .expense-table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-basis: 30%;
+    padding: 3%;
+  }
+
+  .table-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    color: white;
+    margin: 2%;
+  }

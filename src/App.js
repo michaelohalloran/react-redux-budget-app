@@ -5,6 +5,7 @@ import AddBudgetForm from './AddBudgetForm';
 // import IncomeTable from './IncomeTable';
 // import ExpenseTable from './ExpenseTable';
 import Table from './Table';
+// import DivTable from './DivTable';
 // import {arraySorter} from './helper';
 
 //LATER: wrap in <BrowserRouter>, then put <Route path="" component={}></Route> around inside components, and put <Link to="/"> in the other files
@@ -37,7 +38,6 @@ class App extends Component {
   }
 
   toggleSortType = sortedItems => {
-    // console.log('sortType from toggleSortType: ', sortType);
     console.log('hit toggleSortType in app.js');
     // const {sortedAscending, sortedDescending} = this.state;
     // let setSortType = (sortType === 'sortedAscending') ? : ;
@@ -69,6 +69,15 @@ class App extends Component {
     //locate this by grabbing event's id or index, searching array for object with that id/idx
     //then fire handleSubmit after this; 
   }
+  
+  onDeleteClick = idx => {
+    const {items} = this.state;
+    let removeIndex = idx;
+    let first = items.slice(0,removeIndex);
+    let second = items.slice(removeIndex + 1);
+    let updatedItems = [...first, ...second];
+    this.setState({items: updatedItems});
+  }
 
 
   render() {
@@ -81,7 +90,8 @@ class App extends Component {
         sortTable={this.sortTable} 
         items={items}
         moneyType='income'
-        toggleSortType={this.toggleSortType} 
+        toggleSortType={this.toggleSortType}
+        onDeleteClick={this.onDeleteClick} 
       />
     ) : null;
 
@@ -90,7 +100,8 @@ class App extends Component {
         sortTable={this.sortTable} 
         items={items}
         moneyType='expense'
-        toggleSortType={this.toggleSortType} 
+        toggleSortType={this.toggleSortType}
+        onDeleteClick={this.onDeleteClick} 
       />
     ): null;
 

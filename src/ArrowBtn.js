@@ -1,16 +1,18 @@
 import React from 'react';
 
-const ArrowBtn = () => {
+const ArrowBtn = (props) => {
+
+    const {name, value, className, onClick, text} = props;
+    console.log('props: ', props);
+
   return (
     <button
-    // PROPS:
-        // name="desc" 
-        // value="sortDescending"
-        // className="sort-btn"
-        // onClick={this.handleToggleSort}
+        name={name} 
+        value={value} 
+        className={className} 
+        onClick={onClick}
     >
-    {/* DYNAMIC: */}
-        &#8593; 
+        {props.text}
     </button>
   )
 }
